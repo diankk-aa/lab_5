@@ -6,6 +6,7 @@ namespace MovieCatalog.ViewModels;
 
 public class MovieListViewModel: ObservableObject
 {
+    public ICommand DeleteMovieCommand { get; private set; }
     private MovieViewModel? _selectedMovie;
 
     public MovieViewModel? SelectedMovie
@@ -16,8 +17,11 @@ public class MovieListViewModel: ObservableObject
 
     public ObservableCollection<MovieViewModel> Movies { get; set; }
 
-    public MovieListViewModel() =>
+    public MovieListViewModel()
+    {
         Movies = [];
+        DeleteMovieCommand = new Command<MovieViewModel>(DeleteMovie);
+    }
 
     public async Task RefreshMovies()
     {
